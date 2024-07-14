@@ -1,13 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../static/static.css" />
     <title>Home</title>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <h1>To Do App</h1>
+      <h1>To Do App</h1>
     </header>
-</body>
+    <div class="container">
+      <div class="form">
+        <form action="" method="POST">
+          <input
+            type="text"
+            name="todo"
+            class="input"
+            placeholder="Add task ..."
+          />
+          <input type="submit" value="Add Task" class="btn" />
+        </form>
+      </div>
+      <div class="items">
+        <h3>List Items</h3>
+        {{ if . }}
+        <ul>
+          {{ range . }}
+          <li>
+            <div class="task trigger">
+              <span>{{ .Data }}</span>
+            </div>
+            <div class="opt">
+              <span><i class="fas fa-check" title="Done"></i></span>
+              <span><i class="fas fa-edit" title="Edit"></i></span>
+              <span><i class="fas fa-trash-alt" title="Remove"></i></span>
+            </div>
+            <div class="hover-element">
+              <p><strong> ID: </strong>{{ .ID }}</p>
+              <p>
+                <strong> Status: </strong> {{ if .Status }} Active {{ else }} Completed {{ end }}
+              </p>
+              <p>
+                <strong>Created at:</strong> {{ .Created_at.Format "Mon, 02 Jan 2006 15:04:05MST" }}
+              </p>
+            </div>
+          </li>
+          {{ end }}
+        </ul>
+        {{ else }}
+        <h2>No Task</h2>
+        {{ end }}
+      </div>
+    </div>
+  </body>
+  <script src="../static/js/script.js"></script>
 </html>
