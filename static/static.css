@@ -45,14 +45,15 @@ h1 {
 }
 .items {
   width: 50vw;
-
   border: 1px solid gray;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   padding: 5px;
   border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(90, 60, 0, 34); /* Adjust the shadow values as needed */
 }
+
 
 h3 {
   width: 100%;
@@ -61,6 +62,7 @@ h3 {
   padding: 5px;
   text-align: center;
   margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(3, 3, 8, 4); 
 }
 
 ul {
@@ -88,6 +90,7 @@ ul li {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(90, 60, 0, 34); 
 
 }
 
@@ -142,6 +145,7 @@ input::placeholder {
 .fa-trash-alt:hover, .fa-check:hover, .fa-edit:hover  {
     opacity: 1;
     z-index: 9999;
+    box-shadow: 0 2px 4px rgba(90, 60, 90, 34); 
 }
 
 .complete {
