@@ -1,19 +1,13 @@
 package api
 
-import(
-	"net/http"
+import (
+	// "encoding/json"
 	"log"
+	"net/http"
 	"time"
 	"todoapp/utils"
-	"fmt"
+	"html/template"
 )
-
-type Task struct {
-    ID string
-    Data string
-    Status     bool
-    Created_at time.Time
-}
 
 func PostHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
@@ -22,28 +16,32 @@ func PostHandler(w http.ResponseWriter, r *http.Request) {
 
 	r.ParseForm()
 	data := r.FormValue("todo")
+	if data == "" {
+		return
+	}
 
-	newTask := Task{
-		ID:utils.GetId(),
-		Data: data,
-		Status: false,
+	newTask := utils.Task{
+		ID:         utils.GetId(),
+		Data:       data,
+		Status:     true,
 		Created_at: time.Now(),
-
 	}
 
 	tasks := utils.LoadTasks()
-	var Tasks []Task
+	tasks = append(tasks, newTask)
 
-	for i := 0; i < len(tasks); i++ {
-		temp := Task{
-			ID: tasks[i].ID,
-			Data:tasks[i].Data,
-			Status:tasks[i].Status,
-			Created_at:tasks[i].Created_at,
-		}
+	utils.SaveTasks(tasks)
 
-		Tasks = append(Tasks, temp)
-	}
-	Tasks = append(Tasks, newTask)
-	fmt.Fprint(w, Tasks)
+	tmpl, err := template.ParseFiles("templates/index.html")
+    if err != nil {
+        log.Fatal("Error parsing file:", err)
+    }
+    err = tmpl.Execute(w, tasks)
+    if err != nil {
+        log.Fatal("Error executing template:", err)
+    }
+
+	w.Header().Set("Content-Type", "application/json")
+	// json.NewEncoder(w).Encode(tasks)
 }
+
