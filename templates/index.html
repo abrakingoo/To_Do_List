@@ -11,22 +11,26 @@
     <title>Home</title>
   </head>
   <body>
-    <header>
-      <h1>To Do App</h1>
-    </header>
+    <div>
+      <header>
+        <h1>To Do App</h1>
+        <div class="form">
+          <form action="/" method="POST" class="taskForm">
+            <input
+              type="text"
+              name="todo"
+              class="input"
+              placeholder="Add task ..."
+              required
+              id="input"
+            />
+            <input type="submit" value="Add Task" class="btn" />
+          </form>
+        </div>
+      </header>
+    </div>
     <div class="container">
-      <div class="form">
-        <form action="" method="POST">
-          <input
-            type="text"
-            name="todo"
-            class="input"
-            placeholder="Add task ..."
-          />
-          <input type="submit" value="Add Task" class="btn" />
-        </form>
-      </div>
-      <div class="items">
+      <div class="items" id="taskList">
         <h3>List Items</h3>
         {{ if . }}
         <ul>
@@ -43,10 +47,11 @@
             <div class="hover-element">
               <p><strong> ID: </strong>{{ .ID }}</p>
               <p>
-                <strong> Status: </strong> {{ if .Status }} Active {{ else }} Completed {{ end }}
+                <strong> Status: </strong> {{ if .Status }} Active {{ else }}
+                Completed {{ end }}
               </p>
               <p>
-                <strong>Created at:</strong> {{ .Created_at.Format "Mon, 02 Jan 2006 15:04:05MST" }}
+                <strong>Created at:</strong> {{ .Created_at.Format "Mon, 02 Jan2006 15:04:05MST" }}
               </p>
             </div>
           </li>
