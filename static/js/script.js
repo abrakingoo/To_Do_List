@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   const triggers = document.querySelectorAll('.trigger');
   const hoverElements = document.querySelectorAll('.hover-element');
-
+  
   // Attach events to each trigger
   triggers.forEach((trigger, index) => {
     const hoverElement = hoverElements[index];
