@@ -6,16 +6,9 @@ import (
     "net/http"
     "crypto/rand"
     // "encoding/hex"
-    "time"
     "todoapp/utils"
 )
 
-type Task struct {
-    ID string
-    Data string
-    Status     bool
-    Created_at time.Time
-}
 
 func Homehandler(w http.ResponseWriter, r *http.Request) {
     id := make([]byte, 8)
@@ -24,18 +17,14 @@ func Homehandler(w http.ResponseWriter, r *http.Request) {
         log.Fatal("Could not generate an id value >> ", err)
     }
 
-    tmpl, err := template.ParseFiles("templates/index.html")
-    if err != nil {
-        log.Fatal("Error parsing file:", err)
-    }
-
+    
     taskData := utils.LoadTasks()
-
-    var tasks []Task
-
+    
+    var tasks []utils.Task
+    
     // Create Task instances using a loop
     for _, data := range taskData {
-        task := Task{
+        task := utils.Task{
             ID:        data.ID,
             Data:      data.Data,
             Status:    data.Status,
@@ -43,7 +32,11 @@ func Homehandler(w http.ResponseWriter, r *http.Request) {
         }
         tasks = append(tasks, task)
     }
-
+    
+    tmpl, err := template.ParseFiles("templates/index.html")
+    if err != nil {
+        log.Fatal("Error parsing file:", err)
+    }
     err = tmpl.Execute(w, tasks)
     if err != nil {
         log.Fatal("Error executing template:", err)
